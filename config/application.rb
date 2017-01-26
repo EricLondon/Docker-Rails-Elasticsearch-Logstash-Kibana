@@ -29,5 +29,6 @@ module DockerRailsLogstash
 
     config.lograge.enabled = true
     config.lograge.formatter = Lograge::Formatters::Logstash.new
+    config.lograge.logger = LogStashLogger.new(type: :udp, host: ENV['LOGSTASH_HOST'], port: 5228)
   end
 end
