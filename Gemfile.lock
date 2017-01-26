@@ -42,6 +42,10 @@ GEM
     builder (3.2.3)
     byebug (9.0.6)
     concurrent-ruby (1.0.4)
+    dotenv (2.1.2)
+    dotenv-rails (2.1.2)
+      dotenv (= 2.1.2)
+      railties (>= 3.2, < 5.1)
     erubis (2.7.0)
     ffi (1.9.17)
     globalid (0.3.7)
@@ -50,6 +54,11 @@ GEM
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
+    lograge (0.4.1)
+      actionpack (>= 4, < 5.1)
+      activesupport (>= 4, < 5.1)
+      railties (>= 4, < 5.1)
+    logstash-event (1.2.02)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -120,7 +129,10 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  dotenv-rails
   listen (~> 3.0.5)
+  lograge
+  logstash-event
   pg (~> 0.18)
   puma (~> 3.0)
   rails (~> 5.0.1)
