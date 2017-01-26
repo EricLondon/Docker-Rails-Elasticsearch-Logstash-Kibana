@@ -1,24 +1,4 @@
-# README
+# Integrate Rails logs with Elasticsearch, Logstash, and Kibana in Docker Compose
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Read [bob loblaw law] blog post here: http://ericlondon.com/2017/01/26/integrate-rails-logs-with-elasticsearch-logstash-kibana-in-docker-compose.html
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
