@@ -1,0 +1,63 @@
+version: '2'
+services:
+  elasticsearch:
+    image: elasticsearch:latest
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+    volumes:
+      - elasticsearch:/usr/share/elasticsearch/data
+  kibana:
+    image: kibana:latest
+    ports:
+      - '5601:5601'
+  logstash:
+    command: logstash -f /etc/logstash/conf.d/logstash.conf
+    image: logstash:latest
+    ports:
+      - '5000:5000'
+    depends_on:
+      - elasticsearch
+    volumes:
+      - ./config/docker-logstash.conf:/etc/logstash/conf.d/logstash.conf
+  nginx:
+    command: /docker/docker-start-nginx
+    depends_on:
+      - rails
+    environment:
+      - WORKER_PROCESSES=2
+    image: nginx:latest
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./bin/docker-start-nginx:/docker/docker-start-nginx
+      - ./config/docker-nginx.conf.template:/docker/nginx.conf.template
+      - ./config/docker-nginx.rails.conf:/etc/nginx/conf.d/rails.conf
+  postgres:
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+  rails:
+    build: .
+    command: bin/docker-start-rails
+    environment:
+      - ELASTICSEARCH_HOST=elasticsearch
+      - LOGSTASH_HOST=logstash
+      - POSTGRESHOST=postgres
+      - POSTGRESPASS=
+      - POSTGRESUSER=postgres
+      - RAILS_ENV=development
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/rails
+      - bundle:/usr/local/bundle
+    depends_on:
+      - postgres
+volumes:
+  elasticsearch: {}
+  bundle: {}
+  postgres: {}
