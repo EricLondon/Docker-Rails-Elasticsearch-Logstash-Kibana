@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -x
+
+gem install bundler
+bundle check || bundle install
+
+rake db:create
+rake db:migrate
+# rake db:seed
+
+bundle exec puma -C config/puma.rb
